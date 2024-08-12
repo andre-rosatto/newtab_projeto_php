@@ -1,9 +1,9 @@
 <section id="customer-modal" class="modal">
-	<form class="modal-form narrow" name="form-edit" id="form-edit" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+	<form class="modal-form narrow" name="form-edit" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 		<header class="row justify-space-between bg-primary">
 			<h2 class="modal-title">Editar cliente</h2>
-			<span id="modal-id"></span>
-			<button class="btn btn-close bg-secondary" onclick="onModalClose(event, 'customer-modal')">X</button>
+			<span class="modal-id"></span>
+			<button class="btn btn-close bg-secondary" onclick="onModalClose(event, 'customer')">X</button>
 		</header>
 		
 		<input type="hidden" name="customer-id" id="customer-id-hidden" value="">

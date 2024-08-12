@@ -74,58 +74,24 @@ function updateTable(prefix) {
 			let html = '';
 			data.forEach(item => {
 				html += '<tr>';
-				Object.keys(item).forEach(key => {
-					html += `<td>${item[key]}</td>`;
+				Object.keys(item).forEach(field => {
+					const isNumber = field === 'valor' || field === 'quantidade' || field === 'total';
+					let value = item[field];
+					if (field === 'cpf') {
+						value = formatCPF(value);
+					} else if (field === 'valor' || field === 'total') {
+						value = formatValue(value);
+					}
+					html += `<td class="fit-width${isNumber ? ' table-number' : ''}">${value}</td>`;
 				});
 				html += `
 					<td>
-						<button class="btn btn-short bg-primary" onclick="onEditItem(${item['id']})">${buttonText}</button>
+						<button class="btn btn-short bg-primary" onclick="onEditItem('${prefix}', ${item['id']})">${buttonText}</button>
 					</td>
 				</tr>`;
-
-				// tableFields.forEach(field => {
-				// 	const isNumber = field === 'valor' || field === 'quantidade' || field === 'total';
-				// 	let value = item[field];
-				// 	if (field === 'cpf') {
-				// 		value = formatCPF(value);
-				// 	} else if (field === 'valor' || field === 'total') {
-				// 		value = formatValue(value);
-				// 	}
-				// 	html += `<td class="fit-width${isNumber ? ' table-number' : ''}">${value}</td>`;
-				// });
-
 			});
 			tbody.innerHTML = html;
 		});
-	// xmlhttp = new XMLHttpRequest();
-	// xmlhttp.onreadystatechange = function () {
-	// 	if (this.readyState === 4 && this.status === 200) {
-	// 		const data = JSON.parse(this.responseText);
-	// 		const tbody = document.querySelector(`#${prefix}-tbody`);
-	// 		let html = '';
-	// 		data.forEach(item => {
-	// 			html += '<tr>';
-	// 			tableFields.forEach(field => {
-	// 				const isNumber = field === 'valor' || field === 'quantidade' || field === 'total';
-	// 				let value = item[field];
-	// 				if (field === 'cpf') {
-	// 					value = formatCPF(value);
-	// 				} else if (field === 'valor' || field === 'total') {
-	// 					value = formatValue(value);
-	// 				}
-	// 				html += `<td class="fit-width${isNumber ? ' table-number' : ''}">${value}</td>`;
-	// 			});
-	// 			html += `
-	// 				<td>
-	// 					<button class="btn btn-short bg-primary" onclick="onEditItem(${item['id']})">${buttonText}</button>
-	// 				</td>
-	// 			</tr>`;
-	// 		});
-	// 		tbody.innerHTML = html;
-	// 	}
-	// }
-	// xmlhttp.open("GET", `config/request.php?table=${table}&filter=${filter}&orderby=${orderBy}&orderdirection=${orderDirection}&page=${page}`, true);
-	// xmlhttp.send();
 }
 
 function onSearchChange(e, prefix) {
@@ -136,17 +102,16 @@ function onSearchChange(e, prefix) {
 }
 
 function onSelectChange(prefix) {
-	// updateOrderBy();
-	// updateTable();
+	updateTable(prefix);
 }
 
-function onPageChange(e) {
-	// page = Math.min(Math.max(1, Number(e.target.value)), pageCount) - 1;
-	// e.target.value = page + 1;
-	// updatePagination(updateTable);
+function onPageChange(e, prefix) {
+	page = Math.min(Math.max(1, Number(e.target.value)), pageCount) - 1;
+	e.target.value = page + 1;
+	updatePagination(prefix);
 }
 
-function onPaginationButton(inc) {
-	// page = Math.min(page + inc, pageCount - 1);
-	// updatePagination(updateTable);
+function onPaginationButton(inc, prefix) {
+	page = Math.min(page + inc, pageCount - 1);
+	updatePagination(prefix);
 }
