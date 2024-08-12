@@ -1,12 +1,9 @@
 const PAGE_SIZE = 20;
 
 let filter = '';
-let orderBy = '';
-let orderDirection = '';
-let table = '';
 let page = 0;
 let pageCount = 1;
-let tableFields = [];
+// let tableFields = [];
 let itemCount = 0;
 
 // formatação
@@ -53,109 +50,109 @@ function formatAmount(value) {
 }
 
 // atualizações
-function updateOrderBy() {
-	const parts = document.querySelector('#order').value.split('-');
-	orderBy = parts[0];
-	orderDirection = parts[1];
-}
+// function updateOrderBy() {
+// 	const parts = document.querySelector('#order').value.split('-');
+// 	orderBy = parts[0];
+// 	orderDirection = parts[1];
+// }
 
-function updatePagination(onUpdate) {
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function () {
-		if (this.readyState === 4 && this.status === 200) {
-			// atualiza o número de itens na tabela
-			const itemCount = Number(this.responseText);
-			pageCount = Math.max(1, Math.ceil(itemCount / PAGE_SIZE));
+// function updatePagination(prefix, table, onUpdate) {
+// 	xmlhttp = new XMLHttpRequest();
+// 	xmlhttp.onreadystatechange = function () {
+// 		if (this.readyState === 4 && this.status === 200) {
+// 			// atualiza o número de itens na tabela
+// 			const itemCount = Number(this.responseText);
+// 			pageCount = Math.max(1, Math.ceil(itemCount / PAGE_SIZE));
 
-			// atualiza os números da página
-			document.querySelector('#page-count').innerText = `/ ${pageCount}`;
-			document.querySelector('#page').max = pageCount;
-			page = Math.min(page, pageCount - 1);
-			document.querySelector('#page').value = page + 1;
+// 			// atualiza os números da página
+// 			document.querySelector(`#${prefix}-page-count`).innerText = `/ ${pageCount}`;
+// 			document.querySelector(`#${prefix}-page`).max = pageCount;
+// 			page = Math.min(page, pageCount - 1);
+// 			document.querySelector(`#${prefix}-page`).value = page + 1;
 
-			// atualiza os botões < >
-			document.querySelector('#next-btn').disabled = page >= pageCount - 1 ? true : false;
-			document.querySelector('#previous-btn').disabled = page <= 0 ? true : false;
-			if (typeof onUpdate === 'function') onUpdate();
-		}
-	}
-	xmlhttp.open("GET", `config/request.php?tablesize=${table}&filter=${filter}`, true);
-	xmlhttp.send();
-}
+// 			// atualiza os botões < >
+// 			document.querySelector(`#${prefix}-next-btn`).disabled = page >= pageCount - 1 ? true : false;
+// 			document.querySelector(`#${prefix}-previous-btn`).disabled = page <= 0 ? true : false;
+// 			if (typeof onUpdate === 'function') onUpdate();
+// 		}
+// 	}
+// 	xmlhttp.open("GET", `config/request.php?tablesize=${table}&filter=${filter}`, true);
+// 	xmlhttp.send();
+// }
 
-function updateTable() {
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function () {
-		if (this.readyState === 4 && this.status === 200) {
-			const data = JSON.parse(this.responseText);
-			const tbody = document.querySelector('tbody');
-			let html = '';
-			data.forEach(item => {
-				html += '<tr>';
-				tableFields.forEach(field => {
-					const isNumber = field === 'valor' || field === 'quantidade' || field === 'total';
-					let value = item[field];
-					if (field === 'cpf') {
-						value = formatCPF(value);
-					} else if (field === 'valor' || field === 'total') {
-						value = formatValue(value);
-					}
-					html += `<td class="fit-width${isNumber ? ' table-number' : ''}">${value}</td>`;
-				});
-				html += `
-					<td>
-						<button class="btn btn-short bg-primary" onclick="onEditItem(${item['id']})">Editar</button>
-					</td>
-				</tr>`;
-			});
-			tbody.innerHTML = html;
-		}
-	}
-	xmlhttp.open("GET", `config/request.php?table=${table}&filter=${filter}&orderby=${orderBy}&orderdirection=${orderDirection}&page=${page}`, true);
-	xmlhttp.send();
-}
+// function updateTable(prefix, table, buttonText) {
+// 	xmlhttp = new XMLHttpRequest();
+// 	xmlhttp.onreadystatechange = function () {
+// 		if (this.readyState === 4 && this.status === 200) {
+// 			const data = JSON.parse(this.responseText);
+// 			const tbody = document.querySelector(`#${prefix}-tbody`);
+// 			let html = '';
+// 			data.forEach(item => {
+// 				html += '<tr>';
+// 				tableFields.forEach(field => {
+// 					const isNumber = field === 'valor' || field === 'quantidade' || field === 'total';
+// 					let value = item[field];
+// 					if (field === 'cpf') {
+// 						value = formatCPF(value);
+// 					} else if (field === 'valor' || field === 'total') {
+// 						value = formatValue(value);
+// 					}
+// 					html += `<td class="fit-width${isNumber ? ' table-number' : ''}">${value}</td>`;
+// 				});
+// 				html += `
+// 					<td>
+// 						<button class="btn btn-short bg-primary" onclick="onEditItem(${item['id']})">${buttonText}</button>
+// 					</td>
+// 				</tr>`;
+// 			});
+// 			tbody.innerHTML = html;
+// 		}
+// 	}
+// 	xmlhttp.open("GET", `config/request.php?table=${table}&filter=${filter}&orderby=${orderBy}&orderdirection=${orderDirection}&page=${page}`, true);
+// 	xmlhttp.send();
+// }
 
 // eventos
-function onLoad(page) {
-	switch (page) {
-		case 'products':
-			table = 'produtos';
-			tableFields = ['id', 'nome', 'valor', 'cod_barras'];
-			break;
-		case 'orders':
-			table = 'pedidos';
-			tableFields = ['id', 'nome_produto', 'valor', 'quantidade', 'total', 'nome_cliente', 'dt_pedido', 'status_pedido'];
-			break;
-		default:
-			table = 'clientes';
-			tableFields = ['id', 'nome', 'cpf', 'email'];
-	}
-	updateOrderBy();
-	updatePagination(updateTable);
-}
+// function onLoad(page) {
+// 	switch (page) {
+// 		case 'products':
+// 			table = 'produtos';
+// 			tableFields = ['id', 'nome', 'valor', 'cod_barras'];
+// 			break;
+// 		case 'orders':
+// 			table = 'pedidos';
+// 			tableFields = ['id', 'nome_produto', 'valor', 'quantidade', 'total', 'nome_cliente', 'dt_pedido', 'status_pedido'];
+// 			break;
+// 		default:
+// 			table = 'clientes';
+// 			tableFields = ['id', 'nome', 'cpf', 'email'];
+// 	}
+// 	updateOrderBy();
+// 	updatePagination(updateTable);
+// }
 
-function onSearchChange(e) {
-	filter = e.target.value.match(/[A-Za-zÀ-ÿ\d]+[A-Za-zÀ-ÿ'\s]*/g);
-	filter = filter ? filter[0] : '';
-	e.target.value = filter;
-	updatePagination(updateTable);
-}
+// function onSearchChange(e) {
+// 	filter = e.target.value.match(/[A-Za-zÀ-ÿ\d]+[A-Za-zÀ-ÿ'\s]*/g);
+// 	filter = filter ? filter[0] : '';
+// 	e.target.value = filter;
+// 	updatePagination(updateTable);
+// }
 
-function onSelectChange() {
-	updateOrderBy();
-	updateTable();
-}
+// function onSelectChange() {
+// 	updateOrderBy();
+// 	updateTable();
+// }
 
-function onPageChange(e) {
-	page = Math.min(Math.max(1, Number(e.target.value)), pageCount) - 1;
-	e.target.value = page + 1;
-	updatePagination(updateTable);
-}
+// function onPageChange(e) {
+// 	page = Math.min(Math.max(1, Number(e.target.value)), pageCount) - 1;
+// 	e.target.value = page + 1;
+// 	updatePagination(updateTable);
+// }
 
-function onPaginationButton(inc) {
-	page = Math.min(page + inc, pageCount - 1);
-	updatePagination(updateTable);
-}
+// function onPaginationButton(inc) {
+// 	page = Math.min(page + inc, pageCount - 1);
+// 	updatePagination(updateTable);
+// }
 
 // janelas modais
 function showModal(modalId, newItem = false) {

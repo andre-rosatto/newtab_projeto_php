@@ -24,21 +24,22 @@
 		}
 	}
 
-	$orderBy = 'nome';
-	$order = 'ASC';
-	$tableHeaders = ['ID', 'Nome', 'CPF', 'E-mail', ''];
-	$orderOptions = [
-		'nome-ASC' => 'Nome &#9650;', 'nome-DESC' => 'Nome &#9660;',
-		'cpf-ASC' => 'CPF &#9650;', 'cpf-DESC' => 'CPF &#9660;',
-		'email-ASC' => 'E-mail &#9650;', 'email-DESC' => 'E-mail &#9660;',
-		'id-ASC' => 'ID &#9650;', 'id-DESC' => 'ID &#9660;'
-	];
+	// $orderBy = 'nome';
+	// $order = 'ASC';
+	// $tableHeaders = ['ID', 'Nome', 'CPF', 'E-mail', ''];
+	// $orderOptions = [
+	// 	'nome-ASC' => 'Nome &#9650;', 'nome-DESC' => 'Nome &#9660;',
+	// 	'cpf-ASC' => 'CPF &#9650;', 'cpf-DESC' => 'CPF &#9660;',
+	// 	'email-ASC' => 'E-mail &#9650;', 'email-DESC' => 'E-mail &#9660;',
+	// 	'id-ASC' => 'ID &#9650;', 'id-DESC' => 'ID &#9660;'
+	// ];
 ?>
 
 <main>
-	<?php include 'templates/searchbar.php'; ?>
-	
-	<?php include 'templates/table.php'; ?>
+	<?php
+		$prefix = 'customer';
+		include 'templates/table.php';
+	?>
 
 	<?php include 'templates/customer-modal.php'; ?>
 
