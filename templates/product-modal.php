@@ -1,9 +1,9 @@
 <section id="product-modal" class="modal">
-	<form class="modal-form narrow" name="form-edit" id="form-edit" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+	<form id="product-modal-form" class="modal-form narrow" name="form-edit" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 		<header class="row justify-space-between bg-primary">
 			<h2 class="modal-title">Editar produto</h2>
-			<span id="modal-id"></span>
-			<button class="btn btn-close bg-secondary" onclick="onModalClose(event, 'product-modal')">X</button>
+			<span class="modal-id"></span>
+			<button class="btn btn-close bg-secondary" onclick="onModalClose(event, 'product')">X</button>
 		</header>
 
 		<input type="hidden" name="product-id" id="product-id-hidden" value="">
@@ -31,7 +31,7 @@
 			</div>
 
 			<div class="row justify-center gap-large">
-				<button class="btn bg-primary" onclick="onModalOK(event, 'product', true)">OK</button>
+				<button class="btn bg-primary" onclick="onModalOK(event, 'product')">OK</button>
 				<button class="btn bg-secondary btn-delete" onclick="onModalDelete(event, 'product')">Excluir</button>
 			</div>
 		</div>

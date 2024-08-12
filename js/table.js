@@ -8,11 +8,22 @@ const ORDER_OPTIONS = {
 		{ field: 'email', direction: 'DESC', displayName: 'E-mail &#9660;' },
 		{ field: 'id', direction: 'ASC', displayName: 'ID &#9650;' },
 		{ field: 'id', direction: 'DESC', displayName: 'ID &#9660;' }
+	],
+	product: [
+		{ field: 'nome', direction: 'ASC', displayName: 'Nome &#9650;' },
+		{ field: 'nome', direction: 'DESC', displayName: 'Nome &#9660;' },
+		{ field: 'valor', direction: 'ASC', displayName: 'Valor &#9650;' },
+		{ field: 'valor', direction: 'DESC', displayName: 'Valor &#9660;' },
+		{ field: 'cod_barras', direction: 'ASC', displayName: 'Cód. barras &#9650;' },
+		{ field: 'cod_barras', direction: 'DESC', displayName: 'Cód. barras &#9660;' },
+		{ field: 'id', direction: 'ASC', displayName: 'ID &#9650;' },
+		{ field: 'id', direction: 'DESC', displayName: 'ID &#9660;' }
 	]
 };
 
 const TABLE_HEADERS = {
-	customer: ['ID', 'Nome', 'CPF', 'E-mail', '']
+	customer: ['ID', 'Nome', 'CPF', 'E-mail', ''],
+	product: ['ID', 'Nome', 'Valor', 'Cód. barras', '']
 };
 
 const TABLES = {
@@ -66,7 +77,7 @@ function updateTable(prefix) {
 	const orderBy = document.querySelector(`#${prefix}-order`).value.split('-')[0];
 	const orderDirection = document.querySelector(`#${prefix}-order`).value.split('-')[1];
 	const page = document.querySelector(`#${prefix}-page`).value - 1;
-	const buttonText = prefix.split('-')[0] === 'lookup' ? 'Selecionar' : 'Detalhes';
+	const buttonText = prefix.split('-')[0] === 'lookup' ? 'Selecionar' : 'Editar';
 	fetch(`config/request.php?table=${table}&filter=${filter}&orderby=${orderBy}&orderdirection=${orderDirection}&page=${page}`)
 		.then(res => res.json())
 		.then(data => {

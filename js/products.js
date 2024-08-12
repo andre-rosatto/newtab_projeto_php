@@ -1,37 +1,31 @@
-function onEditItem(id) {
-	xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function () {
-		if (this.readyState === 4 && this.status === 200) {
-			const data = JSON.parse(this.responseText);
-			fillModal(id = id, type = 'cliente', items = [
-				{ id: 'modal-product-name', value: data['nome'] },
-				{ id: 'modal-value', value: formatValue(data['valor']) },
-				{ id: 'modal-barcode', value: data['cod_barras'] }
-			]);
-			document.querySelector('#product-id-hidden').value = id;
-			showModal('product-modal');
-		}
-	}
-	xmlhttp.open("GET", `config/request.php?tableinfo=produtos&id=${id}`, true);
-	xmlhttp.send();
+let orderBy = 'nome';
+let orderDirection = 'ASC';
+
+function onLoad() {
+	document.querySelector('#product-searchbar').dataset.type = 'product';
+	initSearchbar('product', 'nome-ASC');
+	initTable('product');
+	updatePagination('product');
+}
+
+function onEditItem(prefix, productId) {
+	fetch(`config/request.php?tableinfo=produtos&id=${productId}`)
+		.then(res => res.json())
+		.then(product => {
+			fillModal(product);
+			showModal(prefix);
+		});
 }
 
 function onAddItem() {
-	fillModal(id = null, type = 'produto', items = [
-		{ id: 'modal-product-name', value: '' },
-		{ id: 'modal-value', value: formatValue(0) },
-		{ id: 'modal-barcode', value: '' }
-	]);
-	showModal('product-modal', true);
+	fillModal();
+	showModal('product', true);
 }
 
-function onModalOK(e) {
-	e.preventDefault();
-	let valid = validateProduct('name');
-	valid &= validateProduct('value');
-	valid &= validateProduct('barcode');
-	if (valid) {
-		document.querySelector('#modal-value').value = rawValue(document.querySelector('#modal-value').value);
-		document.querySelector('#form-edit').submit();
-	}
+function fillModal(product) {
+	document.querySelector('.modal-id').innerText = product ? `(ID: ${product['id']})` : '';
+	document.querySelector('#product-id-hidden').value = product ? product['id'] : '';
+	document.querySelector('#modal-product-name').value = product ? product['nome'] : '';
+	document.querySelector('#modal-value').value = product ? formatValue(product['valor']) : '';
+	document.querySelector('#modal-barcode').value = product ? product['cod_barras'] : '';
 }

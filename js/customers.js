@@ -13,7 +13,7 @@ function onEditItem(prefix, customerId) {
 		.then(res => res.json())
 		.then(customer => {
 			fillModal(customer);
-			showModal(prefix, customer);
+			showModal(prefix);
 		});
 }
 
@@ -23,7 +23,9 @@ function onAddItem() {
 }
 
 function fillModal(customer) {
+	document.querySelector('.modal-id').innerText = customer ? `(ID: ${customer['id']})` : '';
+	document.querySelector('#customer-id-hidden').value = customer ? customer['id'] : '';
 	document.querySelector('#modal-customer-name').value = customer ? customer['nome'] : '';
-	document.querySelector('#modal-cpf').value = customer ? customer['cpf'] : '';
+	document.querySelector('#modal-cpf').value = customer ? formatCPF(customer['cpf']) : '';
 	document.querySelector('#modal-email').value = customer ? customer['email'] : '';
 }

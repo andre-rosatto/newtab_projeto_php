@@ -17,51 +17,68 @@ function hideModal(prefix) {
 	document.querySelector(`#${prefix}-modal`).classList.remove('show');
 }
 
-// function onModalInputChange(e) {
-// 	switch (e.target.name) {
-// 		// clientes
-// 		case 'customer-name':
-// 			e.target.value = formatCustomerName(e.target.value);
-// 			validateCustomer('name');
-// 			break;
-// 		case 'cpf':
-// 			e.target.value = formatCPF(e.target.value).substring(0, 14);
-// 			validateCustomer('cpf');
-// 			break;
-// 		case 'email':
-// 			validateCustomer('email');
-// 			break;
+function onModalInputChange(e) {
+	switch (e.target.name) {
+		// clientes
+		case 'customer-name':
+			e.target.value = formatCustomerName(e.target.value);
+			validateCustomer('name');
+			break;
+		case 'cpf':
+			e.target.value = formatCPF(e.target.value).substring(0, 14);
+			validateCustomer('cpf');
+			break;
+		case 'email':
+			validateCustomer('email');
+			break;
 
-// 		// produtos
-// 		case 'product-name':
-// 			e.target.value = formatProductName(e.target.value);
-// 			validateProduct('name');
-// 			break;
-// 		case 'value':
-// 			e.target.value = formatValue(e.target.value);
-// 			validateProduct('value');
-// 			break;
-// 		case 'barcode':
-// 			e.target.value = rawDigits(e.target.value).substring(0, 20);
-// 			validateProduct('barcode');
-// 			break;
+		// produtos
+		case 'product-name':
+			e.target.value = formatProductName(e.target.value);
+			validateProduct('name');
+			break;
+		case 'value':
+			e.target.value = formatValue(e.target.value);
+			validateProduct('value');
+			break;
+		case 'barcode':
+			e.target.value = rawDigits(e.target.value).substring(0, 20);
+			validateProduct('barcode');
+			break;
 
-// 		// pedidos
-// 		case 'order-date':
-// 			validateOrder('date');
-// 			break;
-// 		case 'order-amount':
-// 			e.target.value = formatAmount(e.target.value);
-// 			updateTotal();
-// 			break;
-// 	}
-// }
+		// pedidos
+		case 'order-date':
+			validateOrder('date');
+			break;
+		case 'order-amount':
+			e.target.value = formatAmount(e.target.value);
+			updateTotal();
+			break;
+	}
+}
 
-// function onModalDelete(e, type) {
-// 	e.preventDefault();
-// 	document.querySelector(`#${type}-action-hidden`).value = 'delete';
-// 	document.querySelector('#form-edit').submit();
-// }
+function onModalOK(e, prefix) {
+	e.preventDefault();
+	let valid = true;
+	if (prefix === 'customer') {
+		valid &= validateCustomer('name');
+		valid &= validateCustomer('cpf');
+		valid &= validateCustomer('email');
+	} else if (prefix === 'product') {
+		valid &= validateProduct('name');
+		valid &= validateProduct('value');
+		valid &= validateProduct('barcode');
+	}
+	if (valid) {
+		document.querySelector(`#${prefix}-modal-form`).submit();
+	}
+}
+
+function onModalDelete(e, prefix) {
+	e.preventDefault();
+	document.querySelector(`#${prefix}-action-hidden`).value = 'delete';
+	document.querySelector(`#${prefix}-modal-form`).submit();
+}
 
 function onModalClose(e, prefix) {
 	e.preventDefault();

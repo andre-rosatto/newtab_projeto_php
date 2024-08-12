@@ -7,7 +7,7 @@
 	if (isset($_POST['customer-action'])) {
 		$id = $_POST['customer-id'];
 		$name = $_POST['customer-name'];
-		$cpf = $_POST['cpf'];
+		$cpf = preg_replace('/[\D]/', '', $_POST['cpf']);
 		$email = $_POST['email'];
 		$sql = '';
 		if ($_POST['customer-action'] === 'update') {
@@ -17,22 +17,13 @@
 		} elseif ($_POST['customer-action'] === 'delete') {
 			$sql = "UPDATE clientes SET deleted_at=NOW() WHERE id=$id";
 		}
+		echo $sql;
 		if ($sql) {
 			$result = $conn->prepare($sql);
 			$result->execute();
 			header('Location: index.php');
 		}
 	}
-
-	// $orderBy = 'nome';
-	// $order = 'ASC';
-	// $tableHeaders = ['ID', 'Nome', 'CPF', 'E-mail', ''];
-	// $orderOptions = [
-	// 	'nome-ASC' => 'Nome &#9650;', 'nome-DESC' => 'Nome &#9660;',
-	// 	'cpf-ASC' => 'CPF &#9650;', 'cpf-DESC' => 'CPF &#9660;',
-	// 	'email-ASC' => 'E-mail &#9650;', 'email-DESC' => 'E-mail &#9660;',
-	// 	'id-ASC' => 'ID &#9650;', 'id-DESC' => 'ID &#9660;'
-	// ];
 ?>
 
 <main>

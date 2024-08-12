@@ -1,5 +1,5 @@
 <section id="customer-modal" class="modal">
-	<form class="modal-form narrow" name="form-edit" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+	<form id="customer-modal-form" class="modal-form narrow" name="form-edit" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 		<header class="row justify-space-between bg-primary">
 			<h2 class="modal-title">Editar cliente</h2>
 			<span class="modal-id"></span>
@@ -31,7 +31,7 @@
 			</div>
 
 			<div class="row justify-center gap-large">
-				<button class="btn bg-primary" onclick="onModalOK(event, 'customer', true)">OK</button>
+				<button class="btn bg-primary" onclick="onModalOK(event, 'customer')">OK</button>
 				<button class="btn bg-secondary btn-delete" onclick="onModalDelete(event, 'customer')">Excluir</button>
 			</div>
 		</div>
