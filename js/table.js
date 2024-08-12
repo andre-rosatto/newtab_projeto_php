@@ -18,12 +18,31 @@ const ORDER_OPTIONS = {
 		{ field: 'cod_barras', direction: 'DESC', displayName: 'Cód. barras &#9660;' },
 		{ field: 'id', direction: 'ASC', displayName: 'ID &#9650;' },
 		{ field: 'id', direction: 'DESC', displayName: 'ID &#9660;' }
+	],
+	order: [
+		{ field: 'nome_produto', direction: 'ASC', displayName: 'Produto &#9650;' },
+		{ field: 'nome_produto', direction: 'DESC', displayName: 'Produto &#9660;' },
+		{ field: 'valor', direction: 'ASC', displayName: 'Valor &#9650;' },
+		{ field: 'valor', direction: 'DESC', displayName: 'Valor &#9660;' },
+		{ field: 'quantidade', direction: 'ASC', displayName: 'Quantidade &#9650;' },
+		{ field: 'quantidade', direction: 'DESC', displayName: 'Quantidade &#9660;' },
+		{ field: 'total', direction: 'ASC', displayName: 'Total &#9650;' },
+		{ field: 'total', direction: 'DESC', displayName: 'Total &#9660;' },
+		{ field: 'nome_cliente', direction: 'ASC', displayName: 'Cliente &#9650;' },
+		{ field: 'nome_cliente', direction: 'DESC', displayName: 'Cliente &#9660;' },
+		{ field: 'dt_pedido', direction: 'ASC', displayName: 'Data &#9650;' },
+		{ field: 'dt_pedido', direction: 'DESC', displayName: 'Data &#9660;' },
+		{ field: 'status_pedido', direction: 'ASC', displayName: 'Status &#9650;' },
+		{ field: 'status_pedido', direction: 'DESC', displayName: 'Status &#9660;' },
+		{ field: 'id', direction: 'ASC', displayName: 'ID &#9650;' },
+		{ field: 'id', direction: 'DESC', displayName: 'ID &#9660;' }
 	]
 };
 
 const TABLE_HEADERS = {
 	customer: ['ID', 'Nome', 'CPF', 'E-mail', ''],
-	product: ['ID', 'Nome', 'Valor', 'Cód. barras', '']
+	product: ['ID', 'Nome', 'Valor', 'Cód. barras', ''],
+	order: ['ID', 'Produto', 'Valor', 'Quantidade', 'Total', 'Cliente', 'Data', 'Status', '']
 };
 
 const TABLES = {
@@ -93,7 +112,13 @@ function updateTable(prefix) {
 					} else if (field === 'valor' || field === 'total') {
 						value = formatValue(value);
 					}
-					html += `<td class="fit-width${isNumber ? ' table-number' : ''}">${value}</td>`;
+					if (field === 'id_produto') {
+						document.querySelector('#order-product-id').value = item[field];
+					} else if (field === 'id_cliente') {
+						document.querySelector('#order-customer-id').value = item[field];
+					} else {
+						html += `<td class="fit-width${isNumber ? ' table-number' : ''}">${value}</td>`;
+					}
 				});
 				html += `
 					<td>
