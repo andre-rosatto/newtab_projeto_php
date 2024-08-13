@@ -74,12 +74,14 @@ function onSearch(e, prefix) {
 		document.querySelector('#product-searchbar-wrapper').classList.add('hidden');
 		document.querySelector('#search-modal .modal-title').innerText = 'Buscar cliente';
 		document.querySelector('#customer-page').value = '1';
+		//TODO: limpar campo de busca
 		updatePagination('customer', true);
 	} else if (prefix === 'product') {
 		document.querySelector('#customer-searchbar-wrapper').classList.add('hidden');
 		document.querySelector('#product-searchbar-wrapper').classList.remove('hidden');
 		document.querySelector('#search-modal .modal-title').innerText = 'Buscar produto';
 		document.querySelector('#product-page').value = '1';
+		//TODO: limpar campo de busca
 		updatePagination('product', true);
 	}
 }
