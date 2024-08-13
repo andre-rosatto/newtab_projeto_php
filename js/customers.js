@@ -22,6 +22,10 @@ function onAddItem() {
 	showModal('customer', true);
 }
 
+function onModalSubmit(prefix) {
+	document.querySelector(`#${prefix}-modal-form`).submit();
+}
+
 function fillModal(customer) {
 	document.querySelector('.modal-id').innerText = customer ? `(ID: ${customer['id']})` : '';
 	document.querySelector('#customer-id-hidden').value = customer ? customer['id'] : '';

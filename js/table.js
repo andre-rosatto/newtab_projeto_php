@@ -68,7 +68,7 @@ function initTable(prefix) {
 	tr.innerHTML = `<th>${TABLE_HEADERS[prefix].join('</th><th>')}</th>`;
 }
 
-function updatePagination(prefix, refreshTable = true) {
+function updatePagination(prefix, isLookUp = false) {
 	const table = TABLES[document.querySelector(`#${prefix}-searchbar`).dataset.type];
 	const filter = document.querySelector(`#${prefix}-search`).value;
 	fetch(`config/request.php?tablesize=${table}&filter=${filter}`)
@@ -86,17 +86,17 @@ function updatePagination(prefix, refreshTable = true) {
 			// atualiza os botões < >
 			document.querySelector(`#${prefix}-next-btn`).disabled = page >= pageCount - 1 ? true : false;
 			document.querySelector(`#${prefix}-previous-btn`).disabled = page <= 0 ? true : false;
-			if (refreshTable) updateTable(prefix);
+			updateTable(prefix, isLookUp);
 		});
 }
 
-function updateTable(prefix) {
+function updateTable(prefix, isLookUp = false) {
 	const table = TABLES[document.querySelector(`#${prefix}-searchbar`).dataset.type];
 	const filter = document.querySelector(`#${prefix}-search`).value;
 	const orderBy = document.querySelector(`#${prefix}-order`).value.split('-')[0];
 	const orderDirection = document.querySelector(`#${prefix}-order`).value.split('-')[1];
 	const page = document.querySelector(`#${prefix}-page`).value - 1;
-	const buttonText = prefix.split('-')[0] === 'lookup' ? 'Selecionar' : 'Editar';
+	const buttonText = isLookUp ? 'Selecionar' : 'Editar';
 	fetch(`config/request.php?table=${table}&filter=${filter}&orderby=${orderBy}&orderdirection=${orderDirection}&page=${page}`)
 		.then(res => res.json())
 		.then(data => {

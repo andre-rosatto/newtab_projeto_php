@@ -64,7 +64,7 @@ function validateOrder(field) {
 	const errors = {};
 	if (field === 'date') {
 		// validar data
-		const date = new Date(document.querySelector('#order-modal-date').value.trim());
+		const date = new Date(document.querySelector('#modal-order-date').value.trim());
 		if (isNaN(date)) {
 			errors['date'] = 'Data é necessária.';
 		} else if (date.getFullYear() < 1950) {
@@ -72,12 +72,12 @@ function validateOrder(field) {
 		}
 		document.querySelector('#date-error').innerText = errors['date'] ?? '';
 	} else if (field === 'customer') {
-		if (document.querySelector('#order-modal-customer-id').value === '') {
+		if (document.querySelector('#order-customer-id').value === '') {
 			errors['customer'] = 'Cliente é necessário.';
 		}
 		document.querySelector('#customer-error').innerText = errors['customer'] ?? '';
 	} else if (field === 'product') {
-		if (document.querySelector('#order-modal-product-id').value === '') {
+		if (document.querySelector('#order-product-id').value === '') {
 			errors['product'] = 'Produto é necessário.';
 		}
 		document.querySelector('#product-error').innerText = errors['product'] ?? '';

@@ -13,8 +13,8 @@
 			<div class="row justify-space-between">
 				<h3>Cliente</h3>
 				<div class="row gap-small">
-					<button class="btn bg-primary" onclick="onSearch(event, 'customer-modal')" data-type="customer-modal">Buscar</button>
-					<button class="btn bg-primary" onclick="onNew(event, 'customer-modal')">Cadastrar novo</button>
+					<button class="btn bg-primary" onclick="onSearch(event, 'customer')">Buscar</button>
+					<button class="btn bg-primary" onclick="onNew(event, 'customer')">Cadastrar novo</button>
 				</div>
 			</div>
 
@@ -41,8 +41,8 @@
 			<div class="row justify-space-between">
 				<h3>Produto</h3>
 				<div class="row gap-small">
-					<button class="btn bg-primary" onclick="onSearch(event, 'product-modal')" data-type="product-modal">Buscar</button>
-					<button class="btn bg-primary" onclick="onNew(event, 'product-modal')">Cadastrar novo</button>
+					<button class="btn bg-primary" onclick="onSearch(event, 'product')">Buscar</button>
+					<button class="btn bg-primary" onclick="onNew(event, 'product')">Cadastrar novo</button>
 				</div>
 			</div>
 

@@ -27,19 +27,6 @@
 		// echo "sql: $sql<br>";
 		// echo "action: {$_POST['order-action']}; customer: $customerId; product: $productId; date: $orderDate; amount: $amount; status: $orderStatus <br>";
 	}
-
-	// $orderBy = 'dt_pedido';
-	// $order = 'DESC';
-	// $tableHeaders = ['ID', 'Produto', 'Valor Unid.', 'Quantidade', 'Total', 'Cliente', 'Data', 'Status', ''];
-	// $orderOptions = [
-	// 	'nome_produto-ASC' => 'Produto &#9650;', 'nome_produto-DESC' => 'Produto &#9660;',
-	// 	'valor-ASC' => 'Valor &#9650;', 'valor-DESC' => 'Valor &#9660;',
-	// 	'quantidade-ASC' => 'Quantidade &#9650;', 'quantidade-DESC' => 'Quantidade &#9660;',
-	// 	'total-ASC' => 'Total &#9650;', 'total-DESC' => 'Total &#9660;',
-	// 	'nome_cliente-ASC' => 'Cliente &#9650;', 'nome_cliente-DESC' => 'Cliente &#9660;',
-	// 	'dt_pedido-ASC' => 'Data &#9650;', 'dt_pedido-DESC' => 'Data &#9660;',
-	// 	'status_pedido-ASC' => 'Status &#9650;', 'status_pedido-DESC' => 'Status &#9660;'
-	// ];
 ?>
 
 <main>
@@ -54,20 +41,25 @@
 
 	<?php include 'templates/product-modal.php'; ?>
 
-	<section id="search-modal" class="modal" data-type="">
+	<section id="search-modal" class="modal">
 		<div class="modal-form wide">
 			<header class="row justify-space-between bg-primary">
 				<h2 class="modal-title"></h2>
-				<button class="btn btn-close bg-secondary" onclick="onModalClose(event, 'search-modal')">X</button>
+				<button class="btn btn-close bg-secondary" onclick="onModalClose(event, 'search')">X</button>
 			</header>
-			<div class="search-bar bg-secondary">
-				<label>Buscar <span></span>:
-					<input type="text" oninput="onModalSearchChange(event)" placeholder="Buscar">
-				</label>
+
+			<div id="customer-searchbar-wrapper">
+				<?php
+					$prefix = 'customer';
+					include 'templates/table.php';
+				?>
 			</div>
-
-			<?php include 'templates/table.php'; ?>
-
+			<div id="product-searchbar-wrapper">
+				<?php
+					$prefix = 'product';
+					include 'templates/table.php';
+				?>
+			</div>
 		</div>
 	</section>
 

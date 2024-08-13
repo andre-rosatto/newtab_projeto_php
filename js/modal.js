@@ -59,18 +59,22 @@ function onModalInputChange(e) {
 
 function onModalOK(e, prefix) {
 	e.preventDefault();
-	let valid = true;
+	let valid = false;
 	if (prefix === 'customer') {
-		valid &= validateCustomer('name');
+		valid = validateCustomer('name');
 		valid &= validateCustomer('cpf');
 		valid &= validateCustomer('email');
 	} else if (prefix === 'product') {
-		valid &= validateProduct('name');
+		valid = validateProduct('name');
 		valid &= validateProduct('value');
 		valid &= validateProduct('barcode');
+	} else if (prefix === 'order') {
+		valid = validateOrder('date');
+		valid &= validateOrder('customer');
+		valid &= validateOrder('product');
 	}
 	if (valid) {
-		document.querySelector(`#${prefix}-modal-form`).submit();
+		onModalSubmit(prefix);
 	}
 }
 

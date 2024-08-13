@@ -3,13 +3,23 @@ let orderDirection = 'DESC';
 
 function onLoad() {
 	document.querySelector('#order-searchbar').dataset.type = 'order';
+	document.querySelector('#customer-searchbar').dataset.type = 'customer';
+	document.querySelector('#product-searchbar').dataset.type = 'product';
 	initSearchbar('order', 'dt_pedido-DESC');
+	initSearchbar('customer', 'nome-ASC');
+	initSearchbar('product', 'nome-ASC');
 	initTable('order');
+	initTable('customer');
+	initTable('product');
 	updatePagination('order');
 }
 
-function onEditItem(prefix, orderId) {
-	fetch(`config/request.php?tableinfo=pedidos&id=${orderId}`)
+function onEditItem(prefix, itemId) {
+	if (prefix === 'customer' || prefix === 'product') {
+		onSelectItem(prefix, itemId);
+		return;
+	}
+	fetch(`config/request.php?tableinfo=pedidos&id=${itemId}`)
 		.then(res => res.json())
 		.then(order => {
 			fillModal(order);
@@ -19,25 +29,90 @@ function onEditItem(prefix, orderId) {
 
 function onAddItem() {
 	fillModal();
-	showModal('customer', true);
+	showModal('order', true);
+}
+
+function updateTotal() {
+	// const amount = document.querySelector('#modal-order-amount').value;
+	const amount = 5;
+	const value = document.querySelector('#modal-order-value').value;
+
+	console.log('amount', amount);
+	console.log('value', value);
+	console.log('rawValue', rawValue(value));
+	console.log('rawValue * amount', rawValue(value) * amount);
+	console.log('formatRawValue', formatValue(rawValue(value)));
+
+	document.querySelector('#modal-order-total').value = formatValue(rawValue(value) * amount);
 }
 
 function fillModal(order) {
+	const date = new Date().toLocaleDateString().split('/');
 	//pedido
 	document.querySelector('.modal-id').innerText = order ? `(ID: ${order['id']})` : '';
 	document.querySelector('#order-id-hidden').value = order ? order['id'] : '';
-	document.querySelector('#modal-order-date').value = order ? order['dt_pedido'] : '';
-	document.querySelector('#modal-order-status').value = order ? order['status_pedido'] : '';
-	document.querySelector('#modal-order-amount').value = order ? order['quantidade'] : '';
+	document.querySelector('#modal-order-date').value = order ? order['dt_pedido'] : `${date[2]}-${date[1]}-${date[0]}`;
+	document.querySelector('#modal-order-status').value = order ? order['status_pedido'] : 'aberto';
+	document.querySelector('#modal-order-amount').value = order ? order['quantidade'] : '1';
 	document.querySelector('#modal-order-total').value = order ? formatValue(order['quantidade'] * order['valor']) : formatValue(0);
 	//cliente
+	document.querySelector('#order-customer-id').value = order ? order['id_cliente'] : '';
 	document.querySelector('#modal-order-customer-name').value = order ? order['nome_cliente'] : '';
 	document.querySelector('#modal-order-cpf').value = order ? formatCPF(order['cpf']) : '';
 	document.querySelector('#modal-order-email').value = order ? order['email'] : '';
 	//produto
+	document.querySelector('#order-product-id').value = order ? order['id_produto'] : '';
 	document.querySelector('#modal-order-product-name').value = order ? order['nome_produto'] : '';
 	document.querySelector('#modal-order-value').value = order ? formatValue(order['valor']) : '';
 	document.querySelector('#modal-order-barcode').value = order ? order['cod_barras'] : '';
+}
+
+function onModalSubmit(prefix) {
+	console.log(prefix);
+}
+
+function onNew(e, prefix) {
+	e.preventDefault();
+	showModal(prefix, true);
+}
+
+function onSearch(e, prefix) {
+	e.preventDefault();
+	document.querySelector('#search-modal').classList.add('show');
+	if (prefix === 'customer') {
+		document.querySelector('#customer-searchbar-wrapper').classList.remove('hidden');
+		document.querySelector('#product-searchbar-wrapper').classList.add('hidden');
+		document.querySelector('#search-modal .modal-title').innerText = 'Buscar cliente';
+	} else {
+		document.querySelector('#customer-searchbar-wrapper').classList.add('hidden');
+		document.querySelector('#product-searchbar-wrapper').classList.remove('hidden');
+		document.querySelector('#search-modal .modal-title').innerText = 'Buscar produto';
+	}
+	updatePagination('customer', true);
+	updatePagination('product', true);
+}
+
+function onSelectItem(prefix, itemId) {
+	const table = prefix === 'customer' ? 'clientes' : 'produtos';
+	fetch(`config/request.php?tableinfo=${table}&id=${itemId}`)
+		.then(res => res.json())
+		.then(item => {
+			if (prefix === 'customer') {
+				document.querySelector('#order-customer-id').value = item ? item['id'] : '';
+				document.querySelector('#modal-order-customer-name').value = item ? item['nome'] : '';
+				document.querySelector('#modal-order-cpf').value = item ? formatCPF(item['cpf']) : '';
+				document.querySelector('#modal-order-email').value = item ? item['email'] : '';
+				validateOrder('customer');
+			} else if (prefix === 'product') {
+				document.querySelector('#order-product-id').value = item ? item['id'] : '';
+				document.querySelector('#modal-order-product-name').value = item ? item['nome'] : '';
+				document.querySelector('#modal-order-value').value = item ? formatValue(item['valor']) : '';
+				document.querySelector('#modal-order-barcode').value = item ? item['cod_barras'] : '';
+				updateTotal();
+				validateOrder('product');
+			}
+			hideModal('search');
+		});
 }
 
 // let data;

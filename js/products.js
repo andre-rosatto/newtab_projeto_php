@@ -22,6 +22,10 @@ function onAddItem() {
 	showModal('product', true);
 }
 
+function onModalSubmit(prefix) {
+	document.querySelector(`#${prefix}-modal-form`).submit();
+}
+
 function fillModal(product) {
 	document.querySelector('.modal-id').innerText = product ? `(ID: ${product['id']})` : '';
 	document.querySelector('#product-id-hidden').value = product ? product['id'] : '';
