@@ -120,17 +120,17 @@ function onModalSubmit(prefix) {
 		const name = document.querySelector('#modal-customer-name').value;
 		const cpf = rawDigits(document.querySelector('#modal-cpf').value);
 		const email = document.querySelector('#modal-email').value;
-		fetch(`config/request.php?register=clientes&nome=${name}&cpf=${cpf}&email=${email}`)
+		fetch(`config/request.php?register=clientes&name=${name}&cpf=${cpf}&email=${email}`)
 			.then(res => res.json())
 			.then(data => {
 				onSelectItem('customer', data['id']);
 				hideModal('customer');
 			});
 	} else if (prefix === 'product') {
-		const name = document.querySelector('#modal-product-name').value;
+		const name = encodeURIComponent(document.querySelector('#modal-product-name').value);
 		const value = rawValue(document.querySelector('#modal-value').value);
 		const barcode = document.querySelector('#modal-barcode').value;
-		fetch(`config/request.php?register=produtos&nome=${name}&valor=${value}&cod_barras=${barcode}`)
+		fetch(`config/request.php?register=produtos&name=${name}&value=${value}&barcode=${barcode}`)
 			.then(res => res.json())
 			.then(data => {
 				onSelectItem('product', data['id']);

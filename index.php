@@ -6,14 +6,14 @@
 
 	if (isset($_POST['customer-action'])) {
 		$id = $_POST['customer-id'];
-		$name = $_POST['customer-name'];
+		$name = $conn->quote($_POST['customer-name']);
 		$cpf = preg_replace('/[\D]/', '', $_POST['cpf']);
-		$email = $_POST['email'];
+		$email = $conn->quote($_POST['email']);
 		$sql = '';
 		if ($_POST['customer-action'] === 'update') {
-			$sql = "UPDATE clientes SET nome='$name', cpf='$cpf', email='$email' WHERE id=$id";
+			$sql = "UPDATE clientes SET nome=$name, cpf='$cpf', email=$email WHERE id=$id";
 		} elseif ($_POST['customer-action'] === 'new') {
-			$sql = "INSERT INTO clientes (nome, cpf, email) VALUES ('$name', '$cpf', '$email')";
+			$sql = "INSERT INTO clientes (nome, cpf, email) VALUES ($name, '$cpf', $email)";
 		} elseif ($_POST['customer-action'] === 'delete') {
 			$sql = "UPDATE clientes SET deleted_at=NOW() WHERE id=$id";
 		}

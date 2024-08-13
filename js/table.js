@@ -53,8 +53,6 @@ const TABLES = {
 
 const PAGE_SIZE = 20;
 
-// let page = 0;
-
 function initSearchbar(prefix, initialValue, isLookup = false) {
 	const select = document.querySelector(`#${prefix}-order`);
 	document.querySelector(`#${prefix}-searchbar`).dataset.type = isLookup ? 'lookup' : '';

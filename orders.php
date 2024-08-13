@@ -19,7 +19,6 @@
 		} elseif ($_POST['order-action'] === 'delete') {
 			$sql = "UPDATE pedidos SET deleted_at=NOW() WHERE id=$id";
 		}
-		// echo $sql;
 		if ($sql) {
 			$result = $conn->prepare($sql);
 			$result->execute();

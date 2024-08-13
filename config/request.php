@@ -113,15 +113,25 @@ if (isset($_GET['tablesize'])) {
 	echo json_encode($result, JSON_UNESCAPED_UNICODE);
 } elseif (isset($_GET['register'])) {
 	$table=$_GET['register'];
-	$fields = $table == 'clientes' ? 'nome, cpf, email' : 'nome, valor, cod_barras';
-	$values = $table == 'clientes' ? "'{$_GET['nome']}', '{$_GET['cpf']}', '{$_GET['email']}'" : "'{$_GET['nome']}', {$_GET['valor']}, '{$_GET['cod_barras']}'";
-	$sql = "INSERT INTO $table ($fields) VALUES ($values)";
-	$statement = $conn->prepare($sql);
-	$statement->execute();
-	$sql = "SELECT LAST_INSERT_ID() AS id";
-	$statement = $conn->query($sql);
-	$result = $statement->fetch(PDO::FETCH_ASSOC);
-	echo json_encode($result, JSON_UNESCAPED_UNICODE);
+	$sql = '';
+	$name = $conn->quote($_GET['name']);
+	if ($table === 'clientes') {
+		$cpf = $_GET['cpf'];
+		$email = $conn->quote($_GET['email']);
+		$sql = "INSERT INTO clientes (nome, cpf, email) VALUES ($name, '$cpf', $email)";
+	} elseif ($table === 'produtos') {
+		$value = $_GET['value'];
+		$barcode = $_GET['barcode'];
+		$sql = "INSERT INTO produtos (nome, valor, cod_barras) VALUES ($name, $value, '$barcode')";
+	}
+	if ($sql) {
+		$statement = $conn->prepare($sql);
+		$statement->execute();
+		$sql = "SELECT LAST_INSERT_ID() AS id";
+		$statement = $conn->query($sql);
+		$result = $statement->fetch(PDO::FETCH_ASSOC);
+		echo json_encode($result, JSON_UNESCAPED_UNICODE);
+	}
 }
 
 $conn = null;
