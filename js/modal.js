@@ -80,8 +80,16 @@ function onModalOK(e, prefix) {
 
 function onModalDelete(e, prefix) {
 	e.preventDefault();
-	document.querySelector(`#${prefix}-action-hidden`).value = 'delete';
-	document.querySelector(`#${prefix}-modal-form`).submit();
+	let itemName = 'cliente';
+	if (prefix === 'product') {
+		itemName = 'produto';
+	} else if (prefix === 'order') {
+		itemName = 'pedido';
+	}
+	if (confirm(`Confirmar a exclusão do ${itemName}?`)) {
+		document.querySelector(`#${prefix}-action-hidden`).value = 'delete';
+		document.querySelector(`#${prefix}-modal-form`).submit();
+	}
 }
 
 function onModalClose(e, prefix) {

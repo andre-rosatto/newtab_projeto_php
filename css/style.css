@@ -76,6 +76,14 @@ tbody tr:last-child td {
 }
 
 th:first-child,
+td:first-child,
+th:last-child,
+td:last-child {
+	width: 1px;
+	white-space: nowrap;
+}
+
+th:first-child,
 td:first-child {
 	padding-left: 20px;
 }
@@ -83,8 +91,6 @@ td:first-child {
 th:last-child,
 td:last-child {
 	padding-right: 20px;
-	width: 1px;
-	white-space: nowrap;
 }
 
 footer {
