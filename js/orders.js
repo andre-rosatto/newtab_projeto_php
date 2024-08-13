@@ -33,17 +33,10 @@ function onAddItem() {
 }
 
 function updateTotal() {
-	// const amount = document.querySelector('#modal-order-amount').value;
-	const amount = 5;
+	const amount = document.querySelector('#modal-order-amount').value;
+	// const amount = 5;
 	const value = document.querySelector('#modal-order-value').value;
-
-	console.log('amount', amount);
-	console.log('value', value);
-	console.log('rawValue', rawValue(value));
-	console.log('rawValue * amount', rawValue(value) * amount);
-	console.log('formatRawValue', formatValue(rawValue(value)));
-
-	document.querySelector('#modal-order-total').value = formatValue(rawValue(value) * amount);
+	document.querySelector('#modal-order-total').value = formatValue((rawValue(value) * amount).toFixed(2));
 }
 
 function fillModal(order) {
