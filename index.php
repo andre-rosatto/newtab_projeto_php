@@ -17,7 +17,6 @@
 		} elseif ($_POST['customer-action'] === 'delete') {
 			$sql = "UPDATE clientes SET deleted_at=NOW() WHERE id=$id";
 		}
-		echo $sql;
 		if ($sql) {
 			$result = $conn->prepare($sql);
 			$result->execute();
