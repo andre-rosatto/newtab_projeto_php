@@ -1,7 +1,8 @@
 function showModal(prefix, newItem = false) {
 	document.querySelectorAll(`#${prefix}-modal .form-error`).forEach(el => el.innerText = '');
 	document.querySelector(`#${prefix}-modal`).classList.add('show');
-	document.querySelector(`#${prefix}-modal input:not([type="hidden"])`)?.focus();
+	document.querySelector(`#${prefix}-modal input[type="text"]:not(.readonly), #${prefix}-modal input[type="number"]`)?.focus();
+
 	const deleteBtn = document.querySelector(`#${prefix}-modal .btn-delete`);
 	const action = document.querySelector(`#${prefix}-action-hidden`);
 	if (newItem) {
