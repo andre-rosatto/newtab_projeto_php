@@ -19,13 +19,12 @@
 		} elseif ($_POST['order-action'] === 'delete') {
 			$sql = "UPDATE pedidos SET deleted_at=NOW() WHERE id=$id";
 		}
+		// echo $sql;
 		if ($sql) {
 			$result = $conn->prepare($sql);
-			// $result->execute();
-			// header('Location: orders.php');
+			$result->execute();
+			header('Location: orders.php');
 		}
-		// echo "sql: $sql<br>";
-		// echo "action: {$_POST['order-action']}; customer: $customerId; product: $productId; date: $orderDate; amount: $amount; status: $orderStatus <br>";
 	}
 ?>
 

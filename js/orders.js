@@ -31,7 +31,6 @@ function onAddItem() {
 
 function updateTotal() {
 	const amount = document.querySelector('#modal-order-amount').value;
-	// const amount = 5;
 	const value = document.querySelector('#modal-order-value').value;
 	document.querySelector('#modal-order-total').value = formatValue((rawValue(value) * amount).toFixed(2));
 }
@@ -53,16 +52,30 @@ function fillModal(order) {
 	//produto
 	document.querySelector('#order-product-id').value = order ? order['id_produto'] : '';
 	document.querySelector('#modal-order-product-name').value = order ? order['nome_produto'] : '';
-	document.querySelector('#modal-order-value').value = order ? formatValue(order['valor']) : '';
+	document.querySelector('#modal-order-value').value = order ? formatValue(order['valor']) : formatValue(0);
 	document.querySelector('#modal-order-barcode').value = order ? order['cod_barras'] : '';
-}
-
-function onModalSubmit(prefix) {
-	console.log(prefix);
 }
 
 function onNew(e, prefix) {
 	e.preventDefault();
+	if (prefix === 'customer') {
+		//cliente
+		document.querySelector('#customer-id-hidden').value = '';
+		document.querySelector('#modal-customer-name').value = '';
+		document.querySelector('#modal-cpf').value = '';
+		document.querySelector('#modal-email').value = '';
+	} else if (prefix === 'product') {
+		//produto
+		document.querySelector('#product-id-hidden').value = '';
+		document.querySelector('#modal-product-name').value = '';
+		document.querySelector('#modal-value').value = formatValue(0);
+		document.querySelector('#modal-barcode').value = '';
+
+		console.log(document.querySelector('#order-product-id').value);
+		console.log(document.querySelector('#modal-order-product-name').value);
+		console.log(document.querySelector('#modal-order-value').value);
+		console.log(document.querySelector('#modal-order-barcode').value);
+	}
 	showModal(prefix, true);
 }
 
@@ -128,6 +141,8 @@ function onModalSubmit(prefix) {
 				onSelectItem('product', data['id']);
 				hideModal('product');
 			});
+	} else if (prefix === 'order') {
+		document.querySelector('#order-modal-form').submit();
 	}
 
 }
