@@ -2,9 +2,6 @@ let orderBy = 'dt_pedido';
 let orderDirection = 'DESC';
 
 function onLoad() {
-	document.querySelector('#order-searchbar').dataset.type = 'order';
-	document.querySelector('#customer-searchbar').dataset.type = 'customer';
-	document.querySelector('#product-searchbar').dataset.type = 'product';
 	initSearchbar('order', 'dt_pedido-DESC');
 	initSearchbar('customer', 'nome-ASC');
 	initSearchbar('product', 'nome-ASC');
@@ -76,13 +73,15 @@ function onSearch(e, prefix) {
 		document.querySelector('#customer-searchbar-wrapper').classList.remove('hidden');
 		document.querySelector('#product-searchbar-wrapper').classList.add('hidden');
 		document.querySelector('#search-modal .modal-title').innerText = 'Buscar cliente';
-	} else {
+		document.querySelector('#customer-page').value = '1';
+		updatePagination('customer', true);
+	} else if (prefix === 'product') {
 		document.querySelector('#customer-searchbar-wrapper').classList.add('hidden');
 		document.querySelector('#product-searchbar-wrapper').classList.remove('hidden');
 		document.querySelector('#search-modal .modal-title').innerText = 'Buscar produto';
+		document.querySelector('#product-page').value = '1';
+		updatePagination('product', true);
 	}
-	updatePagination('customer', true);
-	updatePagination('product', true);
 }
 
 function onSelectItem(prefix, itemId) {

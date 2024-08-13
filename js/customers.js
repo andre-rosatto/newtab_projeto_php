@@ -2,7 +2,6 @@ let orderBy = 'nome';
 let orderDirection = 'ASC';
 
 function onLoad() {
-	document.querySelector('#customer-searchbar').dataset.type = 'customer';
 	initSearchbar('customer', 'nome-ASC');
 	initTable('customer');
 	updatePagination('customer');

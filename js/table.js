@@ -53,7 +53,7 @@ const TABLES = {
 
 const PAGE_SIZE = 20;
 
-let page = 0;
+// let page = 0;
 
 function initSearchbar(prefix, initialValue) {
 	const select = document.querySelector(`#${prefix}-order`);
@@ -72,8 +72,9 @@ function initTable(prefix) {
 }
 
 function updatePagination(prefix, isLookUp = false) {
-	const table = TABLES[document.querySelector(`#${prefix}-searchbar`).dataset.type];
+	const table = TABLES[prefix];
 	const filter = document.querySelector(`#${prefix}-search`).value;
+	let page = document.querySelector(`#${prefix}-page`).value - 1;
 	fetch(`config/request.php?tablesize=${table}&filter=${filter}`)
 		.then(res => res.json())
 		.then(itemCount => {
@@ -94,7 +95,7 @@ function updatePagination(prefix, isLookUp = false) {
 }
 
 function updateTable(prefix, isLookUp = false) {
-	const table = TABLES[document.querySelector(`#${prefix}-searchbar`).dataset.type];
+	const table = TABLES[prefix];
 	const filter = document.querySelector(`#${prefix}-search`).value;
 	const orderBy = document.querySelector(`#${prefix}-order`).value.split('-')[0];
 	const orderDirection = document.querySelector(`#${prefix}-order`).value.split('-')[1];
@@ -151,6 +152,7 @@ function onPageChange(e, prefix) {
 }
 
 function onPaginationButton(inc, prefix) {
-	page = Math.min(page + inc, pageCount - 1);
+	const page = document.querySelector(`#${prefix}-page`);
+	page.value = Math.min(page.value) + inc, pageCount - 1;
 	updatePagination(prefix);
 }
