@@ -3,7 +3,7 @@
 		<header class="row justify-space-between bg-primary">
 			<h2 class="modal-title">Editar pedido</h2>
 			<span class="modal-id"></span>
-			<button class="btn btn-close bg-secondary" onclick="onModalClose(event, 'order')">X</button>
+			<input type="button" class="btn btn-close bg-secondary" onclick="onModalClose(event, 'order')" value = "X" />
 		</header>
 
 		<input type="hidden" name="order-id" id="order-id-hidden" value="">
@@ -13,8 +13,8 @@
 			<div class="row justify-space-between">
 				<h3>Cliente</h3>
 				<div class="row gap-small">
-					<button class="btn bg-primary" onclick="onSearch(event, 'customer')">Buscar</button>
-					<button class="btn bg-primary" onclick="onNew(event, 'customer')">Cadastrar novo</button>
+					<input type="button" class="btn bg-primary" onclick="onSearch(event, 'customer')" value="Buscar" />
+					<input type="button" class="btn bg-primary" onclick="onNew(event, 'customer')" value="Cadastrar novo" />
 				</div>
 			</div>
 
@@ -41,8 +41,8 @@
 			<div class="row justify-space-between">
 				<h3>Produto</h3>
 				<div class="row gap-small">
-					<button class="btn bg-primary" onclick="onSearch(event, 'product')">Buscar</button>
-					<button class="btn bg-primary" onclick="onNew(event, 'product')">Cadastrar novo</button>
+					<input type="button" class="btn bg-primary" onclick="onSearch(event, 'product')" value="Buscar" />
+					<input type="button" class="btn bg-primary" onclick="onNew(event, 'product')" value="Cadastrar novo" />
 				</div>
 			</div>
 
@@ -96,7 +96,7 @@
 
 			<div class="row justify-center gap-large">
 				<button class="btn bg-primary" onclick="onModalOK(event, 'order')">OK</button>
-				<button class="btn bg-secondary btn-delete" onclick="onModalDelete(event, 'order')">Excluir</button>
+				<input type="button" class="btn bg-secondary btn-delete" onclick="onModalDelete(event, 'order')" value="Excluir" />
 			</div>
 		</div>
 	</form>
