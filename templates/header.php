@@ -27,7 +27,7 @@
 	<script src="js/validation.js"></script>
 	<script src="js/modal.js"></script>
 	<script src="js/table.js"></script>
-	<script src="js/common.js"></script>
+	<!-- <script src="js/common.js"></script> -->
 
 	<?php if ($_SERVER['PHP_SELF'] === '/orders.php'): ?>
 		<script src="js/orders.js"></script>

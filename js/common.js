@@ -1,10 +1,10 @@
-const PAGE_SIZE = 20;
+// const PAGE_SIZE = 20;
 
-let filter = '';
-let page = 0;
-let pageCount = 1;
+// let filter = '';
+// let page = 0;
+// let pageCount = 1;
 // let tableFields = [];
-let itemCount = 0;
+// let itemCount = 0;
 
 // formatação
 // function rawDigits(cpf) {

@@ -51,9 +51,12 @@ const TABLES = {
 	order: 'pedidos'
 };
 
+const PAGE_SIZE = 20;
+
+let page = 0;
+
 function initSearchbar(prefix, initialValue) {
 	const select = document.querySelector(`#${prefix}-order`);
-	const orderBy = select.dataset.orderBy;
 	let html = '';
 	ORDER_OPTIONS[prefix].forEach(option => {
 		const value = `${option.field}-${option.direction}`;
