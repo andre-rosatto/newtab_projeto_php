@@ -55,8 +55,9 @@ const PAGE_SIZE = 20;
 
 // let page = 0;
 
-function initSearchbar(prefix, initialValue) {
+function initSearchbar(prefix, initialValue, isLookup = false) {
 	const select = document.querySelector(`#${prefix}-order`);
+	document.querySelector(`#${prefix}-searchbar`).dataset.type = isLookup ? 'lookup' : '';
 	let html = '';
 	ORDER_OPTIONS[prefix].forEach(option => {
 		const value = `${option.field}-${option.direction}`;
@@ -71,7 +72,7 @@ function initTable(prefix) {
 	tr.innerHTML = `<th>${TABLE_HEADERS[prefix].join('</th><th>')}</th>`;
 }
 
-function updatePagination(prefix, isLookUp = false) {
+function updatePagination(prefix) {
 	const table = TABLES[prefix];
 	const filter = document.querySelector(`#${prefix}-search`).value;
 	let page = document.querySelector(`#${prefix}-page`).value - 1;
@@ -90,17 +91,17 @@ function updatePagination(prefix, isLookUp = false) {
 			// atualiza os botões < >
 			document.querySelector(`#${prefix}-next-btn`).disabled = page >= pageCount - 1 ? true : false;
 			document.querySelector(`#${prefix}-previous-btn`).disabled = page <= 0 ? true : false;
-			updateTable(prefix, isLookUp);
+			updateTable(prefix);
 		});
 }
 
-function updateTable(prefix, isLookUp = false) {
+function updateTable(prefix) {
 	const table = TABLES[prefix];
 	const filter = document.querySelector(`#${prefix}-search`).value;
 	const orderBy = document.querySelector(`#${prefix}-order`).value.split('-')[0];
 	const orderDirection = document.querySelector(`#${prefix}-order`).value.split('-')[1];
 	const page = document.querySelector(`#${prefix}-page`).value - 1;
-	const buttonText = isLookUp ? 'Selecionar' : 'Editar';
+	const buttonText = document.querySelector(`#${prefix}-searchbar`).dataset.type === 'lookup' ? 'Selecionar' : 'Editar';
 	fetch(`config/request.php?table=${table}&filter=${filter}&orderby=${orderBy}&orderdirection=${orderDirection}&page=${page}`)
 		.then(res => res.json())
 		.then(data => {

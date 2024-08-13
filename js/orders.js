@@ -3,8 +3,8 @@ let orderDirection = 'DESC';
 
 function onLoad() {
 	initSearchbar('order', 'dt_pedido-DESC');
-	initSearchbar('customer', 'nome-ASC');
-	initSearchbar('product', 'nome-ASC');
+	initSearchbar('customer', 'nome-ASC', true);
+	initSearchbar('product', 'nome-ASC', true);
 	initTable('order');
 	initTable('customer');
 	initTable('product');
@@ -70,11 +70,6 @@ function onNew(e, prefix) {
 		document.querySelector('#modal-product-name').value = '';
 		document.querySelector('#modal-value').value = formatValue(0);
 		document.querySelector('#modal-barcode').value = '';
-
-		console.log(document.querySelector('#order-product-id').value);
-		console.log(document.querySelector('#modal-order-product-name').value);
-		console.log(document.querySelector('#modal-order-value').value);
-		console.log(document.querySelector('#modal-order-barcode').value);
 	}
 	showModal(prefix, true);
 }
@@ -144,5 +139,4 @@ function onModalSubmit(prefix) {
 	} else if (prefix === 'order') {
 		document.querySelector('#order-modal-form').submit();
 	}
-
 }

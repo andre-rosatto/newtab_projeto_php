@@ -114,7 +114,7 @@ if (isset($_GET['tablesize'])) {
 } elseif (isset($_GET['register'])) {
 	$table=$_GET['register'];
 	$fields = $table == 'clientes' ? 'nome, cpf, email' : 'nome, valor, cod_barras';
-	$values = $table == 'clientes' ? "'{$_GET['nome']}', '{$_GET['cpf']}', '{$_GET['email']}'" : "'{$_GET['nome']}', '{$_GET['valor']}', '{$_GET['cod_barras']}'";
+	$values = $table == 'clientes' ? "'{$_GET['nome']}', '{$_GET['cpf']}', '{$_GET['email']}'" : "'{$_GET['nome']}', {$_GET['valor']}, '{$_GET['cod_barras']}'";
 	$sql = "INSERT INTO $table ($fields) VALUES ($values)";
 	$statement = $conn->prepare($sql);
 	$statement->execute();
