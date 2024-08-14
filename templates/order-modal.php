@@ -3,7 +3,7 @@
 		<header class="row justify-space-between bg-primary">
 			<h2 class="modal-title">Editar pedido</h2>
 			<span class="modal-id"></span>
-			<input type="button" class="btn btn-close bg-secondary" onclick="onModalClose(event, 'order')" value = "X" />
+			<div class="btn btn-close bg-secondary" onclick="onModalClose(event, 'order')">X</div>
 		</header>
 
 		<input type="hidden" name="order-id" id="order-id-hidden" value="">
@@ -96,7 +96,7 @@
 
 			<div class="row justify-center gap-large">
 				<button class="btn bg-primary" onclick="onModalOK(event, 'order')">OK</button>
-				<input type="button" class="btn bg-secondary btn-delete" onclick="onModalDelete(event, 'order')" value="Excluir" />
+				<div class="btn bg-secondary btn-delete" onclick="onModalDelete(event, 'order')">Excluir</div>
 			</div>
 		</div>
 	</form>
