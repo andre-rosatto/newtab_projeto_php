@@ -5,7 +5,7 @@ $pageSize = 20;
 $table;
 
 function getFilterParams($filter, $table) {
-	$result = "WHERE $table.deleted_at IS NULL";
+	$result = "WHERE $table.dt_exclusao IS NULL";
 	if (strlen($filter) == 0) return $result;
 	switch ($table) {
 		case 'produtos':
@@ -104,9 +104,9 @@ if (isset($_GET['tablesize'])) {
 	$table = $_GET['item'];
 	$id = $_GET['id'];
 	if ($_GET['item'] === 'produtos') {
-		$sql = "SELECT id, nome, valor, cod_barras FROM $table WHERE id=$id AND deleted_at IS NULL";
+		$sql = "SELECT id, nome, valor, cod_barras FROM $table WHERE id=$id AND dt_exclusao IS NULL";
 	} else {
-		$sql = "SELECT id, nome, cpf, email FROM $table WHERE id=$id AND deleted_at IS NULL";
+		$sql = "SELECT id, nome, cpf, email FROM $table WHERE id=$id AND dt_exclusao IS NULL";
 	}
 	$statement = $conn->query($sql);
 	$result = $statement->fetch(PDO::FETCH_ASSOC);

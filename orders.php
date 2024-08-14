@@ -17,7 +17,7 @@
 		} elseif ($_POST['order-action'] === 'new') {
 			$sql = "INSERT INTO pedidos (id_cliente, id_produto, dt_pedido, quantidade, status_pedido) VALUES ($customerId, $productId, '$orderDate', $amount, '$orderStatus')";
 		} elseif ($_POST['order-action'] === 'delete') {
-			$sql = "UPDATE pedidos SET deleted_at=NOW() WHERE id=$id";
+			$sql = "UPDATE pedidos SET dt_exclusao=NOW() WHERE id=$id";
 		}
 		if ($sql) {
 			$result = $conn->prepare($sql);

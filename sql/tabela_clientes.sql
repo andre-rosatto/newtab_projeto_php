@@ -5,6 +5,6 @@ CREATE TABLE clientes (
   nome VARCHAR(100) NOT NULL,
   cpf CHAR(11) NOT NULL,
   email VARCHAR(100) DEFAULT NULL,
-  deleted_at DATETIME DEFAULT NULL,
+  dt_exclusao DATE DEFAULT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
