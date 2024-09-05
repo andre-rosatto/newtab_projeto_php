@@ -1,7 +1,12 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 <?php include 'templates/header.php'; ?>
-<?php include 'templates/navbar.php'; ?>
 
-<?php
+<body onload="onLoad('<?php echo $page; ?>')">
+	<?php include 'templates/header.php'; ?>
+	<?php include 'templates/navbar.php'; ?>
+
+	<?php
 	include 'config/connect.php';
 
 	if (isset($_POST['product-action'])) {
@@ -23,15 +28,20 @@
 			header('Location: products.php');
 		}
 	}
-?>
-
-<main>
-<?php
-		$prefix = 'product';
-		include 'templates/table.php';
 	?>
 
-	<?php include 'templates/product-modal.php'; ?>
+	<main>
+		<?php
+		$prefix = 'product';
+		include 'templates/table.php';
+		?>
+
+		<?php include 'templates/product-modal.php'; ?>
+
+	</main>
 
 	<?php include 'templates/footer.php'; ?>
-</main>
+
+</body>
+
+</html>

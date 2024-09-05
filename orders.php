@@ -1,7 +1,12 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 <?php include 'templates/header.php'; ?>
-<?php include 'templates/navbar.php'; ?>
 
-<?php
+<body onload="onLoad('<?php echo $page; ?>')">
+	<?php include 'templates/header.php'; ?>
+	<?php include 'templates/navbar.php'; ?>
+
+	<?php
 	include 'config/connect.php';
 
 	if (isset($_POST['order-action'])) {
@@ -25,41 +30,45 @@
 			header('Location: orders.php');
 		}
 	}
-?>
-
-<main>
-<?php
-		$prefix = 'order';
-		include 'templates/table.php';
 	?>
 
-	<?php include 'templates/order-modal.php'; ?>
+	<main>
+		<?php
+		$prefix = 'order';
+		include 'templates/table.php';
+		?>
 
-	<?php include 'templates/customer-modal.php'; ?>
+		<?php include 'templates/order-modal.php'; ?>
 
-	<?php include 'templates/product-modal.php'; ?>
+		<?php include 'templates/customer-modal.php'; ?>
 
-	<section id="search-modal" class="modal">
-		<div class="modal-form wide">
-			<header class="row justify-space-between bg-primary">
-				<h2 class="modal-title"></h2>
-				<button class="btn btn-close bg-secondary" onclick="onModalClose(event, 'search')">X</button>
-			</header>
+		<?php include 'templates/product-modal.php'; ?>
 
-			<div id="customer-searchbar-wrapper">
-				<?php
+		<section id="search-modal" class="modal">
+			<div class="modal-form wide">
+				<header class="row justify-space-between bg-primary">
+					<h2 class="modal-title"></h2>
+					<button class="btn btn-close bg-secondary" onclick="onModalClose(event, 'search')">X</button>
+				</header>
+
+				<div id="customer-searchbar-wrapper">
+					<?php
 					$prefix = 'customer';
 					include 'templates/table.php';
-				?>
-			</div>
-			<div id="product-searchbar-wrapper">
-				<?php
+					?>
+				</div>
+				<div id="product-searchbar-wrapper">
+					<?php
 					$prefix = 'product';
 					include 'templates/table.php';
-				?>
+					?>
+				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	</main>
 
 	<?php include 'templates/footer.php'; ?>
-</main>
+
+</body>
+
+</html>
