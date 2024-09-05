@@ -28,6 +28,7 @@
 			$result = $conn->prepare($sql);
 			$result->execute();
 			header('Location: orders.php');
+			die();
 		}
 	}
 	?>

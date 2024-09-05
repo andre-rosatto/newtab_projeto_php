@@ -26,6 +26,7 @@
 			$result = $conn->prepare($sql);
 			$result->execute();
 			header('Location: products.php');
+			die();
 		}
 	}
 	?>

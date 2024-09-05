@@ -25,6 +25,7 @@
 			$result = $conn->prepare($sql);
 			$result->execute();
 			header('Location: index.php');
+			die();
 		}
 	}
 	?>
