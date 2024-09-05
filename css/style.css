@@ -45,54 +45,6 @@ label {
 	font-size: 14px;
 }
 
-table {
-	width: 100%;
-	text-align: left;
-	border-collapse: collapse;
-}
-
-th {
-	padding: 4px 10px;
-	color: white;
-	text-align: center;
-}
-
-tbody tr {
-	background-color: var(--row-odd);
-}
-
-tbody tr:nth-child(even) {
-	background-color: var(--row-even);
-}
-
-td {
-	padding: 2px 10px;
-	border: 1px solid white;
-}
-
-tbody tr:first-child td,
-tbody tr:last-child td {
-	border-top: none;
-}
-
-th:first-child,
-td:first-child,
-th:last-child,
-td:last-child {
-	width: 1px;
-	white-space: nowrap;
-}
-
-th:first-child,
-td:first-child {
-	padding-left: 20px;
-}
-
-th:last-child,
-td:last-child {
-	padding-right: 20px;
-}
-
 footer {
 	position: fixed;
 	bottom: 0;
@@ -180,10 +132,6 @@ hr {
 .btn-short {
 	padding-top: 3px;
 	padding-bottom: 5px;
-}
-
-.table-number {
-	text-align: right;
 }
 
 .search-bar {
