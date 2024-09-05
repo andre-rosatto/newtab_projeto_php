@@ -24,6 +24,7 @@ switch ($_SERVER['PHP_SELF']) {
 	<link rel="stylesheet" href="css/navbar.css">
 	<link rel="stylesheet" href="css/table.css">
 	<link rel="stylesheet" href="css/modal.css">
+	<link rel="stylesheet" href="css/footer.css">
 	<script src="js/formatting.js"></script>
 	<script src="js/validation.js"></script>
 	<script src="js/modal.js"></script>
