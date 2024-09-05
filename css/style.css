@@ -16,18 +16,6 @@
 	pointer-events: none;
 }
 
-nav {
-	padding: 10px 20px;
-}
-
-nav li {
-	list-style: none;
-}
-
-nav li.selected {
-	border-bottom: 2px solid white;
-}
-
 a {
 	color: white;
 	text-decoration: none;
