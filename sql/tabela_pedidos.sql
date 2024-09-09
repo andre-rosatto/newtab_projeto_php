@@ -7,8 +7,7 @@ CREATE TABLE IF NOT EXISTS pedidos (
   dt_pedido DATE NOT NULL,
   quantidade INT NOT NULL,
   status_pedido ENUM('aberto','cancelado','pago') DEFAULT 'aberto',
-  dt_exclusao DATE DEFAULT NULL,
   PRIMARY KEY (id),
-  FOREIGN KEY (id_cliente) REFERENCES clientes(id),
-  FOREIGN KEY (id_produto) REFERENCES produtos(id)
+  FOREIGN KEY (id_cliente) REFERENCES clientes(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_produto) REFERENCES produtos(id) ON DELETE CASCADE
 ) ENGINE=INNODB;

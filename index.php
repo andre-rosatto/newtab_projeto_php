@@ -19,7 +19,7 @@
 		} elseif ($_POST['customer-action'] === 'new') {
 			$sql = "INSERT INTO clientes (nome, cpf, email) VALUES ($name, '$cpf', $email)";
 		} elseif ($_POST['customer-action'] === 'delete') {
-			$sql = "UPDATE clientes SET dt_exclusao=NOW() WHERE id=$id";
+			$sql = "DELETE FROM clientes WHERE id=$id";
 		}
 		if ($sql) {
 			$result = $conn->prepare($sql);

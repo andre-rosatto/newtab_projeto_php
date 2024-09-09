@@ -20,7 +20,7 @@
 		} elseif ($_POST['product-action'] === 'new') {
 			$sql = "INSERT INTO produtos (nome, valor, cod_barras) VALUES ($name, $value, '$barcode')";
 		} elseif ($_POST['product-action'] === 'delete') {
-			$sql = "UPDATE produtos SET dt_exclusao=NOW() WHERE id=$id";
+			$sql = "DETELE FROM produtos WHERE id=$id";
 		}
 		if ($sql) {
 			$result = $conn->prepare($sql);

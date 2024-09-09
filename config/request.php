@@ -5,15 +5,14 @@ $pageSize = 20;
 $table;
 
 function getFilterParams($filter, $table) {
-	$result = "WHERE $table.dt_exclusao IS NULL";
-	if (strlen($filter) == 0) return $result;
+	if (strlen($filter) == 0) return '';
 	switch ($table) {
 		case 'produtos':
-			return $result . ' AND (id LIKE "%' . $filter . '%" OR nome LIKE "%' . $filter . '%" OR valor LIKE "%' . $filter . '%" OR cod_barras LIKE "%' . $filter . '%")';
+			return 'WHERE id LIKE "%' . $filter . '%" OR nome LIKE "%' . $filter . '%" OR valor LIKE "%' . $filter . '%" OR cod_barras LIKE "%' . $filter . '%"';
 		case 'pedidos':
-			return $result . ' AND (pedidos.id LIKE "%' . $filter . '%" OR produtos.nome LIKE "%' . $filter . '%" OR quantidade LIKE "%' . $filter . '%" OR valor * quantidade LIKE "%' . $filter . '%" OR clientes.nome LIKE "%' . $filter . '%" OR dt_pedido LIKE "%' . $filter . '%" OR status_pedido LIKE "%' . $filter . '%")';
+			return 'WHERE pedidos.id LIKE "%' . $filter . '%" OR produtos.nome LIKE "%' . $filter . '%" OR quantidade LIKE "%' . $filter . '%" OR valor * quantidade LIKE "%' . $filter . '%" OR clientes.nome LIKE "%' . $filter . '%" OR dt_pedido LIKE "%' . $filter . '%" OR status_pedido LIKE "%' . $filter . '%"';
 		default:
-			return $result . ' AND (id LIKE "%' . $filter . '%" OR nome LIKE "%' . $filter . '%" OR cpf LIKE "%' . $filter . '%" OR email LIKE "%' . $filter . '%")';
+			return 'WHERE id LIKE "%' . $filter . '%" OR nome LIKE "%' . $filter . '%" OR cpf LIKE "%' . $filter . '%" OR email LIKE "%' . $filter . '%"';
 	}
 }
 

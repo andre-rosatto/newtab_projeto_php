@@ -5,6 +5,5 @@ CREATE TABLE IF NOT EXISTS produtos (
   nome VARCHAR(100) NOT NULL,
   valor DECIMAL(11,2) NOT NULL,
   cod_barras VARCHAR(20) NOT NULL,
-  dt_exclusao DATE DEFAULT NULL,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB;
